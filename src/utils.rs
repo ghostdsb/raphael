@@ -1,6 +1,7 @@
 pub mod helpers{
     use std::cmp;
     use crate::image_rect;
+    use crate::SortKey;
 
 
     #[derive(Debug)]
@@ -9,9 +10,19 @@ pub mod helpers{
         pub id: u32,
     }
 
-    pub fn sort(list: &Vec<image_rect::image::ImageRect>) -> Vec<ImageHelper>{
-        let image_size_list = image_list_builder(&list);
-        image_size_list
+    pub fn sort(list: &mut Vec<image_rect::image::ImageRect>, key: SortKey){
+
+        match key{
+            SortKey::Height =>
+            list
+            .sort_by(|img_a, img_b| img_b.height.cmp(&img_a.height)),
+            SortKey::Width => 
+            list
+            .sort_by(|img_a, img_b| img_b.width.cmp(&img_a.width)),
+            SortKey::MaxDimension =>
+            list
+            .sort_by(|img_a, img_b| img_b.max_dimension.cmp(&img_a.max_dimension))
+        }
 
     }
 
