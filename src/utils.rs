@@ -1,5 +1,4 @@
 pub mod helpers{
-    use std::cmp;
     use crate::image_rect;
     use crate::SortKey;
 
@@ -19,27 +18,14 @@ pub mod helpers{
             SortKey::Width => 
             list
             .sort_by(|img_a, img_b| img_b.width.cmp(&img_a.width)),
+            SortKey::Area => 
+            list
+            .sort_by(|img_a, img_b| img_b.area.cmp(&img_a.area)),
             SortKey::MaxDimension =>
             list
             .sort_by(|img_a, img_b| img_b.max_dimension.cmp(&img_a.max_dimension))
         }
 
     }
-
-    fn image_list_builder(list: &Vec<image_rect::image::ImageRect>) -> Vec<ImageHelper>{
-        list
-        .into_iter()
-        .map(|img| {ImageHelper{
-            size: cmp::max(img.width, img.height),
-            id: img.id
-            }
-        })
-        .collect::<Vec<ImageHelper>>()     
-    }
-
-    // fn bin_sort<T>(list: Vec<T>)->Vec<T>{
-
-    // }
-
     
 }
